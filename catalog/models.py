@@ -1,7 +1,8 @@
 from django.db import models
 
+
 class Category(models.Model):
-    category_name = models.CharField(max_length=200, default= 'Without category')
+    category_name = models.CharField(max_length=200, default='Without category')
 
     class Meta:
         verbose_name = 'Category name'
@@ -24,5 +25,3 @@ class BoardGames(models.Model):
 
     def __str__(self):
         return self.name_of_game
-
-

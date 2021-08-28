@@ -1,6 +1,6 @@
-{% if latest_game_list %}
+{% if games %}
     <ul>
-    {% for game in latest_game_list %}
+    {% for game in games %}
         <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
     {% endfor %}
     </ul>
