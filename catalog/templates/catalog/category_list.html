@@ -1,0 +1,9 @@
+{% if latest_category_list %}
+    <ul>
+    {% for category in latest_category_list %}
+        <li><a href="{% url 'catalog:game_list' category.id %}">{{ category.category_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are available.</p>
+{% endif %}
