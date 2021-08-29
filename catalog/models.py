@@ -17,7 +17,7 @@ class BoardGames(models.Model):
     start_player_age = models.IntegerField(default=0)
     rating_from_the_store = models.IntegerField(default=0)
     game_description = models.TextField(default="Let's add later")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category)
 
     class Meta:
         verbose_name = 'Board Game'

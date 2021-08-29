@@ -1,5 +1,6 @@
 from django.template import loader
 from django.shortcuts import render
+from django.db.models import Count
 
 from .models import BoardGames, Category
 
