@@ -22,8 +22,8 @@ def category_list(request):
 
 
 def detail(request, pk):
-    description = BoardGames.objects.get(id=pk).game_description
+    game = BoardGames.objects.get(id=pk)
     context = {
-        'description': description,
+        'game': game,
     }
     return render(request, 'catalog/detail.html', context)

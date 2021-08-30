@@ -18,6 +18,7 @@ class BoardGames(models.Model):
     rating_from_the_store = models.IntegerField(default=0)
     game_description = models.TextField(default="Let's add later")
     category = models.ManyToManyField(Category)
+    picture = models.ImageField(upload_to='images/', blank=True)
 
     class Meta:
         verbose_name = 'Board Game'
