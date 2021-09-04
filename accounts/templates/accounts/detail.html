@@ -1,0 +1,10 @@
+<h1>Profile</h1>
+<p>Username: {{ user }}</p>
+<p>First name: {{ user.first_name }}</p>
+<p>Last name: {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>City: {{ user.userprofile.city }}</p>
+<p>Bio: {{ user.userprofile.bio }}</p>
+<p>Birthday: {{ user.userprofile.birth_date }}</p>
+<a href='{% url 'accounts:edit_profile' %}'>Edit Profile</a>
+<a href='{% url 'catalog:category_list' %}'>Home page</a>

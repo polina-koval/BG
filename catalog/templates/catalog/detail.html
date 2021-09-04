@@ -1,3 +1,21 @@
-<h1>{{ game.name_of_game }}</h1><br>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ game.name_of_game }}</h1>
+<b>Age:</b>
+{{ game.start_player_age }}+<br>
+<b>Playing Time:</b>
+{{ game.playing_time }} min<br>
+{% if game.min_players_number == game.max_players_number %}
+    <b>Number of players:</b>
+    {{ game.min_players_number }} players<br>
+{% else %}
+    <b>Number of players:</b>
+    {{ game.min_players_number }}-{{ game.max_players_number }} players<br>
+{% endif %}
+<b>Store rating:</b>
+{{ game.rating_from_the_store }} out of 10<br>
 <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500" height="600"><br>
 <i>{{ game.game_description }}</i>
+{% endblock content %}
