@@ -2,11 +2,14 @@
 {% if user.is_authenticated %}
     <p>Hi {{ user.username }}!</p>
     <p><a href="{% url 'logout' %}">Log out</a></p>
-    <p><a href="{% url 'accounts:view_profile'%}">User profile</a></p>
+    <p><a href="{% url 'accounts:view_profile' %}">User profile</a></p>
 {% else %}
     <p>You are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
-    <a href= '{% url 'accounts:register'%}'>Sign Up</a>
+    <a href='{% url 'accounts:register' %}'>Sign Up</a>
 {% endif %}
+    <form action="{% url 'catalog:search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+    </form>
 {% block content %}
 {% endblock content %}

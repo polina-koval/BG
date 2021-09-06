@@ -1,0 +1,5 @@
+<h1>Search Results</h1>
+
+    {% for game in object_list %}
+        <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
+    {% endfor %}

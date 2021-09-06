@@ -18,10 +18,8 @@ from django.contrib.auth.decorators import login_required
 def register(request):
     if request.method == 'POST':
         user_form = RegistrationForm(request.POST)
-        #profile_form = ProfileForm(request.POST)
-        if user_form.is_valid(): #and profile_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
-            #profile_form.save()
             new_user = authenticate(username=user_form.cleaned_data['username'],
                                     password=user_form.cleaned_data['password1'],
                                     )
@@ -31,10 +29,8 @@ def register(request):
             return redirect(reverse('catalog:category_list'))
     else:
         user_form = RegistrationForm()
-        #profile_form = ProfileForm()
 
-        args = {'user_form': user_form#,
-                #'profile_form': profile_form
+        args = {'user_form': user_form
                 }
         return render(request, 'accounts/signup.html', args)
 
@@ -52,7 +48,6 @@ def view_profile(request, pk=None):
     return render(request, 'accounts/detail.html', args)
 
 
-# @login_required
 def edit_profile(request):
     if request.method == 'POST':
         user_form = EditProfileForm(request.POST, instance=request.user)
