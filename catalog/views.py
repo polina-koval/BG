@@ -1,32 +1,30 @@
 from django.shortcuts import render
 
 from catalog.models import BoardGames, Category
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.db.models import Q
 
 
-def game_list(request, category_id):
-    games = BoardGames.objects.filter(category=category_id)
-    context = {
-        'games': games,
-    }
-    return render(request, 'catalog/game_list.html', context)
+class GameListView(DetailView):
+    model = Category
+    template_name = 'catalog/game_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['games'] = BoardGames.objects.filter(category=self.kwargs.get('pk'))
+        return context
 
 
-def category_list(request):
-    all_category = Category.objects.all()
-    context = {
-        'all_category': all_category,
-    }
-    return render(request, 'catalog/category_list.html', context)
+class CategoryListView(ListView):
+    queryset = Category.objects.all()
+    context_object_name = 'all_category'
+    template_name = 'catalog/category_list.html'
 
 
-def detail(request, pk):
-    game = BoardGames.objects.get(id=pk)
-    context = {
-        'game': game,
-    }
-    return render(request, 'catalog/detail.html', context)
+class DetailViewGame(DetailView):
+    model = BoardGames
+    context_object_name = 'game'
+    template_name = 'catalog/detail.html'
 
 
 class SearchResultsView(ListView):

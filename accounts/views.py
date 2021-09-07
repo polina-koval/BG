@@ -25,13 +25,9 @@ def register(request):
                                     )
             login(request, new_user)
             return redirect(reverse('catalog:category_list'))
-        else:
-            return redirect(reverse('catalog:category_list'))
     else:
         user_form = RegistrationForm()
-
-        args = {'user_form': user_form
-                }
+        args = {'user_form': user_form}
         return render(request, 'accounts/signup.html', args)
 
 

@@ -6,11 +6,11 @@ from catalog.views import SearchResultsView
 app_name = 'catalog'
 urlpatterns = [
     # ex: /catalog/
-    path('', views.category_list, name='category_list'),
+    path('', views.CategoryListView.as_view(), name='category_list'),
     # ex: /catalog/category/5/
-    path('category/<int:category_id>/', views.game_list, name='game_list'),
+    path('category/<pk>/', views.GameListView.as_view(), name='game_list'),
     # ex: /catalog/category/5/detail
-    path('description/<pk>/', views.detail, name='detail'),
+    path('description/<pk>/', views.DetailViewGame.as_view(), name='detail'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
 
 ]
