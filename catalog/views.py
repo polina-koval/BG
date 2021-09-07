@@ -1,6 +1,8 @@
-from catalog.models import BoardGames, Category
-from django.views.generic import ListView, DetailView
+from catalog.models import BoardGames, Category, Comment
+from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
+from catalog.forms import CommentForm
+from django.urls import reverse_lazy
 
 
 class GameListView(DetailView):
@@ -33,3 +35,14 @@ class SearchResultsView(ListView):
         query = self.request.GET.get('q')
         object_list = BoardGames.objects.filter(Q(name_of_game__icontains=query) | Q(game_description__icontains=query))
         return object_list
+
+
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'catalog/add_comment.html'
+    success_url = reverse_lazy('catalog:category_list')
+
+    def form_valid(self, form):
+        form.instance.game_id = self.kwargs['pk']
+        return super().form_valid(form)
