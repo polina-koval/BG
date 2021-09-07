@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from catalog.models import BoardGames, Category, Comment
+from catalog.models import BoardGames, Category
 
 admin.site.register(BoardGames)
 admin.site.register(Category)
-admin.site.register(Comment)

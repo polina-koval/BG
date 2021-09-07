@@ -1,6 +1,5 @@
 from django.db import models
 from accounts.models import UserProfile
-from django.utils import timezone
 
 
 class Category(models.Model):
@@ -32,14 +31,3 @@ class BoardGames(models.Model):
 
     def __str__(self):
         return self.name_of_game
-
-
-class Comment(models.Model):
-    game = models.ForeignKey(
-        BoardGames, on_delete=models.PROTECT, related_name='comments')
-    author = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
-    content = models.TextField(max_length=240)
-    date_posted = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.content

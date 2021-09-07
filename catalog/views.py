@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from catalog.models import BoardGames, Category
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
