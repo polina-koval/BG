@@ -35,8 +35,7 @@ class SearchResultsView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = BoardGames.objects.filter(Q(name_of_game__icontains=query)
-                                                | Q(game_description__icontains=query))
+        object_list = BoardGames.objects.filter(Q(name_of_game__icontains=query) | Q(game_description__icontains=query))
         return object_list
 
 
@@ -53,6 +52,7 @@ class AddCommentView(CreateView):
 
 def like_view(request, pk):
     game = get_object_or_404(BoardGames, id=request.POST.get('game_id'))
+    liked = False
     if game.likes.filter(id=request.user.id).exists():
         game.likes.remove(request.user)
         liked = False
