@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% if games %}
-    <ul>
-        {% for game in games %}
-            <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No games are available.</p>
-{% endif %}
+    {% if games %}
+        <ul>
+            {% for game in games %}
+                <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No games are available.</p>
+    {% endif %}
 {% endblock content %}
-
-media/images/pic3901211.png

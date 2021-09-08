@@ -45,4 +45,4 @@ class Comment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '%s - %s' % (self.game.name_of_game, self.name)
+        return f'{self.game.name_of_game} - {self.name}'
