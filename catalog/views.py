@@ -2,7 +2,9 @@ from catalog.models import BoardGames, Category, Comment
 from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q
 from catalog.forms import CommentForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 
 
 class GameListView(DetailView):
@@ -46,3 +48,15 @@ class AddCommentView(CreateView):
     def form_valid(self, form):
         form.instance.game_id = self.kwargs['pk']
         return super().form_valid(form)
+
+
+def like_view(request, pk):
+    game = get_object_or_404(BoardGames, id=request.POST.get('game_id'))
+    liked = False
+    if game.likes.filter(id=request.user.id).exists():
+        game.likes.remove(request.user)
+        liked = False
+    else:
+        game.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('catalog:detail', args=[str(pk)]))

@@ -19,10 +19,19 @@
     <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500" height="600"><br>
     <i>{{ game.game_description }}</i><br>
 
+    <br/><br/>
+    <hr>
+    <br/>
+    <form action="{% url 'catalog:like_game' game.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" , name="game_id" , value="{{ game.id }}">Like</button>
+        - {{ game.total_likes }} Likes
+    </form>
+
     <hr>
     <h2>Comments</h2>
     {% if not game.comments.all %}
-        No Comments Yet <a href="{% url 'catalog:add_comment' game.pk%}">Add One</a>
+        No Comments Yet <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
     {% else %}
         {% for comment in game.comments.all %}
             <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
@@ -30,8 +39,8 @@
             {{ comment.body }}
             <br/><br/>
         {% endfor %}
-        Add comment <a href="{% url 'catalog:add_comment' game.pk%}">Add One</a>
+        Add comment <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
     {% endif %}
 
-<hr>
+    <hr>
 {% endblock content %}

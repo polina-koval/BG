@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import UserProfile
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -24,6 +25,7 @@ class BoardGames(models.Model):
     playing_time = models.IntegerField(default=0)
     min_players_number = models.IntegerField(default=1)
     max_players_number = models.IntegerField(default=100)
+    likes = models.ManyToManyField(User, related_name='game_likes')
 
     class Meta:
         verbose_name = 'Board Game'
@@ -31,6 +33,9 @@ class BoardGames(models.Model):
 
     def __str__(self):
         return self.name_of_game
+
+    def total_likes(self):
+        return self.likes.count()
 
 
 class Comment(models.Model):

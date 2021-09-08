@@ -13,4 +13,5 @@ urlpatterns = [
     path('description/<pk>/', views.DetailViewGame.as_view(), name='detail'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('description/<pk>/comment', views.AddCommentView.as_view(), name='add_comment'),
+    path('like/<pk>', views.like_view, name='like_game'),
 ]
