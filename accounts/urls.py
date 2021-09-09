@@ -1,13 +1,8 @@
 from django.urls import path
 
-from accounts.views import (
-    AdditionalEditProfile,
-    EditProfile,
-    LikedGameListView,
-    PasswordsChangeView,
-    ProfileListView,
-    SignUpView,
-)
+from accounts.views import (AdditionalEditProfile, EditProfile,
+                            LikedGameListView, PasswordsChangeView,
+                            ProfileListView, SignUpView)
 
 app_name = "accounts"
 urlpatterns = [

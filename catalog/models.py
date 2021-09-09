@@ -18,7 +18,6 @@ class Category(models.Model):
 class BoardGames(models.Model):
     name_of_game = models.CharField(max_length=200)
     start_player_age = models.IntegerField(default=0)
-    rating_from_the_store = models.IntegerField(default=0)
     game_description = models.TextField(default="Let's add later")
     category = models.ManyToManyField(Category)
     picture = models.ImageField(upload_to="images/", blank=True)
@@ -26,6 +25,20 @@ class BoardGames(models.Model):
     min_players_number = models.IntegerField(default=1)
     max_players_number = models.IntegerField(default=100)
     likes = models.ManyToManyField(User, related_name="game_likes")
+
+    class StoreRating(models.IntegerChoices):
+        One = "1"
+        Two = "2"
+        Three = "3"
+        Four = "4"
+        Five = "5"
+        Six = "6"
+        Seven = "7"
+        Eight = "8"
+        Nine = "9"
+        Ten = "10"
+
+    rating_from_the_store = models.IntegerField(choices=StoreRating.choices, default=1)
 
     class Meta:
         verbose_name = "Board Game"
