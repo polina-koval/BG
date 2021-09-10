@@ -7,6 +7,7 @@ from myapi import views as myapiviews
 router = routers.DefaultRouter()
 router.register(r"all_category", myapiviews.CategoryGamesViewSet)
 router.register(r"all_games", myapiviews.BoardGamesViewSet)
+router.register(r"all_users", myapiviews.UserViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ game.name_of_game }}</h1>
+    <h1>{{ game.name }}</h1>
     <b>Age:</b>
     {{ game.start_player_age }}+<br>
     <b>Playing Time:</b>
@@ -16,7 +16,7 @@
     <b>Store rating:</b>
     {{ game.rating_from_the_store }} out of 10<br>
     <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500" height="600"><br>
-    <i>{{ game.game_description }}</i><br>
+    <i>{{ game.description }}</i><br>
 
     <br/><br/>
     <hr>

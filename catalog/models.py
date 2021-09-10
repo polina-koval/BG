@@ -16,9 +16,9 @@ class Category(models.Model):
 
 
 class BoardGames(models.Model):
-    name_of_game = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     start_player_age = models.IntegerField(default=0)
-    game_description = models.TextField(default="Let's add later")
+    description = models.TextField(default="Let's add later")
     category = models.ManyToManyField(Category)
     picture = models.ImageField(upload_to="images/", blank=True)
     playing_time = models.IntegerField(default=0)
@@ -45,7 +45,7 @@ class BoardGames(models.Model):
         verbose_name_plural = "Board Games"
 
     def __str__(self):
-        return self.name_of_game
+        return self.name
 
     def total_likes(self):
         return self.likes.count()
@@ -60,4 +60,4 @@ class Comment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.game.name_of_game} - {self.name}"
+        return f"{self.game.name} - {self.name}"

@@ -5,7 +5,7 @@
     {% if games %}
         <ul>
             {% for game in games %}
-                <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
+                <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name }}</a></li>
             {% endfor %}
         </ul>
 
