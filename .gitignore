@@ -2,6 +2,7 @@
 *.pyo
 *.db
 .vscode
+.sqlite3
 .env.txt
 venv
 /static/

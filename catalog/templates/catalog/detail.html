@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ game.name }}</h1>
+    {% if game.age_check %}
+        <h1>{{ game.age_check }}</h1>
+    {% endif %}
+    <h1>{{ game.name }} {{ game.recommendation }}</h1>
     <b>Age:</b>
     {{ game.start_player_age }}+<br>
     <b>Playing Time:</b>

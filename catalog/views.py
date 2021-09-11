@@ -37,7 +37,7 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         object_list = BoardGames.objects.filter(
-            Q(name_of_game__icontains=query) | Q(game_description__icontains=query)
+            Q(name__icontains=query) | Q(description__icontains=query)
         )
         return object_list
 

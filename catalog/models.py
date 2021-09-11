@@ -47,8 +47,20 @@ class BoardGames(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if BoardGames.objects.filter(name=[self.name]).exists():
+            raise ValueError("This game already exists")
+        else:
+            super().save(*args, **kwargs)
+
     def total_likes(self):
         return self.likes.count()
+
+    def recommendation(self):
+        return '(Recommend)' if self.rating_from_the_store >= 8 else ''
+
+    def age_check(self):
+        return 'Caution, for adults only!' if self.start_player_age >= 18 else ''
 
 
 class Comment(models.Model):
