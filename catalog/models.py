@@ -24,7 +24,7 @@ class BoardGames(models.Model):
     playing_time = models.IntegerField(default=0)
     min_players_number = models.IntegerField(default=1)
     max_players_number = models.IntegerField(default=100)
-    likes = models.ManyToManyField(User, related_name="game_likes")
+    likes = models.ManyToManyField(User, related_name="game_likes", blank=True)
 
     class StoreRating(models.IntegerChoices):
         One = "1"
