@@ -27,16 +27,16 @@ class BoardGames(models.Model):
     likes = models.ManyToManyField(User, related_name="game_likes", blank=True)
 
     class StoreRating(models.IntegerChoices):
-        One = "1"
-        Two = "2"
-        Three = "3"
-        Four = "4"
-        Five = "5"
-        Six = "6"
-        Seven = "7"
-        Eight = "8"
-        Nine = "9"
-        Ten = "10"
+        One = 1
+        Two = 2
+        Three = 3
+        Four = 4
+        Five = 5
+        Six = 6
+        Seven = 7
+        Eight = 8
+        Nine = 9
+        Ten = 10
 
     rating_from_the_store = models.IntegerField(choices=StoreRating.choices, default=1)
 
