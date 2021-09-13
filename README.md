@@ -1,7 +1,7 @@
-#Board games project  
+# Board games project  
 The site provides a catalog of board games with user authorization, comments and likes. There is also an API.  
 
-##Getting Started  
+## Getting Started  
 The first thing to do is to clone the repository:  
 
 ```sh
@@ -30,10 +30,12 @@ $ cp .env.example .env
 
 Once pip has finished downloading the dependencies and the variable is updated:  
  
-```(venv)$ python manage.py runserver```  
+```sh
+(venv)$ python manage.py runserver
+```  
 
 Navigate to `http://127.0.0.1:8000/catalog` to the website and `http://127.0.0.1:8000` to the API.  
 
-##Built with   
+## Built with   
 - Django  
 - Django Rest Framework
