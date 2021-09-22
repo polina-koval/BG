@@ -72,7 +72,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
