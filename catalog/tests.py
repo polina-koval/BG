@@ -8,7 +8,7 @@ class CategoryTestCase(TestCase):
 
     def test_category(self):
         test = Category.objects.get(name="test_category")
-        self.assertEqual(test.name, 'test_category')
+        assert test.name == 'test_category'
 
 
 class BoardGamesTestCase(TestCase):
@@ -17,9 +17,9 @@ class BoardGamesTestCase(TestCase):
 
     def test_game(self):
         test_game = BoardGames.objects.get(name='test_game')
-        self.assertEqual(test_game.name, 'test_game')
-        self.assertEqual(test_game.start_player_age, 0)
-        self.assertEqual(test_game.category.all().count(), 0)
+        assert test_game.name == 'test_game'
+        assert test_game.start_player_age == 0
+        assert test_game.category.all().count() == 0
 
 
 class TestModels(TestCase):
@@ -27,6 +27,7 @@ class TestModels(TestCase):
         game = BoardGames.objects.create(name='Catan')
         strategy = Category.objects.create(name='strategy')
         game.category.add(strategy)
-        self.assertEqual(game.category.count(), 1)
-        self.assertEqual(game.category.all()[0].name, 'strategy')
-        self.assertEqual(game.name, 'Catan')
+        assert game.category.count() == 1
+        assert game.category.all()[0].name == 'strategy'
+        assert game.name == 'Catan'
+
