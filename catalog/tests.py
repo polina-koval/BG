@@ -1,7 +1,8 @@
-from django.test import TestCase
-import pytest
-from django.urls import resolve
 import datetime
+
+import pytest
+from django.test import TestCase
+
 from catalog.models import Category, BoardGames, Comment
 
 
@@ -51,7 +52,6 @@ class TestStr(TestCase):
 
 
 class TestMethodBoardGames(TestCase):
-
     def test_value_error(self):
         with pytest.raises(ValueError) as excinfo:
             game1 = BoardGames.objects.create(name='Catan')
