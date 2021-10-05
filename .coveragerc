@@ -8,7 +8,6 @@ omit =
    *venv/lib/*
    *manage.py
    */settings.py
-   */local_settings.py
    */tests/*
    *apps.py
    *migrations/*
