@@ -9,17 +9,19 @@ RUN apk add --update --no-cache postgresql-client
 # so that we could avoid installing extra packages to the container
 RUN apk add --update --no-cache --virtual .tmp-build-deps gcc libc-dev linux-headers postgresql-dev
 
-RUN pip3 install -r requirements.txt
+
 # Remove dependencies
+RUN python3 -m pip install --upgrade pip
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add postgresql \
     && apk add postgresql-dev \
     && pip install psycopg2 \
     && apk add jpeg-dev zlib-dev libjpeg \
-    && pip install Pillow \
+    && python3 -m pip install --upgrade Pillow \
     && apk del build-deps
 
+RUN pip install -r requirements.txt
 COPY . .
 
 CMD python manage.py runserver 0.0.0.0:8000
