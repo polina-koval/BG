@@ -33,7 +33,8 @@ class TestStr(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user = User.objects.create_user(username="test_user", email="user1@test.com", is_staff=True)
+        self.user = User.objects.create_user(username="test_user",
+                                             email="user1@test.com", is_staff=True)
         self.user.set_password("password1")
         self.user.save()
 
