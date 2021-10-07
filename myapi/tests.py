@@ -4,8 +4,6 @@ from rest_framework.test import APIClient
 from catalog.models import BoardGames, Category
 from django.contrib.auth.models import User
 
-pytestmark = pytest.mark.django_db
-
 
 class TestBoardGamesAPIViews(TestCase):
     def setUp(self):
@@ -17,16 +15,14 @@ class TestBoardGamesAPIViews(TestCase):
     def test_game_API(self):
         self.client.force_authenticate(self.user)
         BoardGames.objects.create(name='test_game')
-        test_game = BoardGames.objects.get(name='test_game')
         response = self.client.get('/all_games/')
-        assert response.json != None
+        assert response.json is not None
         assert response.status_code == 200
 
     def test_category_API(self):
         self.client.force_authenticate(self.user)
         Category.objects.create(name='test_category')
-        category = Category.objects.get(name='test_category')
         response = self.client.get('/all_category/')
         print(response)
-        assert response.json != None
+        assert response.json is not None
         assert response.status_code == 200
