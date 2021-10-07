@@ -112,5 +112,7 @@ class TestURL(TestCase):
         test_user = User.objects.get(username='test_user')
         game = BoardGames.objects.create(name='Catan')
         game.likes.add(test_user.id)
+        response = self.client.get("/accounts/dashboard/1/likes_games")
         assert game.likes.count() == 1
         assert game.likes.get(id=test_user.id) == test_user
+        assert response.status_code == 200

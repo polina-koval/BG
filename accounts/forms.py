@@ -1,10 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+import os
+from dotenv import load_dotenv
 
 from accounts.models import UserProfile
 
-from django.core.mail import send_mail
+load_dotenv()
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -26,9 +30,9 @@ class RegistrationForm(UserCreationForm):
 
         if commit:
             send_mail(
-                'Your registration in BG',
-                'Congratulation! Have a good board game experience!',
-                'from@example.com',
+                "Your registration in BG",
+                "Congratulation! Have a good board game experience!",
+                os.getenv("EMAIL_HOST_USER"),
                 [user.email],
                 fail_silently=False,
             )
