@@ -88,3 +88,14 @@ class TestURL(TestCase):
         response2 = self.client.get('/catalog/description/1/')
         assert response1.status_code == 200
         assert response2.status_code == 200
+
+    def test_view_search_result(self):
+        test_game1 = BoardGames.objects.create(name='TestGame1')
+        test_game2 = BoardGames.objects.create(name='TestGame2', description="TestDescriptionForGame")
+        response1 = self.client.get('/catalog/search/?q=TestGame1/')
+        response2 = self.client.get('/catalog/search/?q=TestDescriptionForGame/')
+        assert response1.status_code == 200
+        assert response2.status_code == 200
+        assert test_game1.name in str(response1.request)
+        assert test_game2.description in str(response2.request)
+

@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 from rest_framework.test import APIClient
 from catalog.models import BoardGames, Category
@@ -23,6 +22,5 @@ class TestBoardGamesAPIViews(TestCase):
         self.client.force_authenticate(self.user)
         Category.objects.create(name='test_category')
         response = self.client.get('/all_category/')
-        print(response)
         assert response.json is not None
         assert response.status_code == 200
