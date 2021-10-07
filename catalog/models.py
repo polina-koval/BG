@@ -48,6 +48,8 @@ class BoardGames(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        print(f"{self.name}")
+        print(f"{BoardGames.objects.filter(name=self.name)}")
         if BoardGames.objects.filter(name=self.name).exists():
             raise ValueError("This game already exists")
         else:

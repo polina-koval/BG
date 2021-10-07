@@ -13,7 +13,7 @@ class TestBoardGamesAPIViews(TestCase):
 
     def test_game_API(self):
         self.client.force_authenticate(self.user)
-        BoardGames.objects.create(name='test_game')
+        BoardGames.objects.create(name='test_game777')
         response = self.client.get('/all_games/')
         assert response.json is not None
         assert response.status_code == 200

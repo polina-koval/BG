@@ -1,27 +1,30 @@
 import datetime
 
 import pytest
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
-
+from catalog.factories import BoardGamesFactory, CategoryFactory
 from catalog.models import Category, BoardGames, Comment
 
 
 class CategoryTestCase(TestCase):
+
     def test_category(self):
-        Category.objects.create(name="test_category")
-        test = Category.objects.get(name="test_category")
-        assert test.name == 'test_category'
+        # Category.objects.create(name="test_category")
+        # test = Category.objects.get(name="test_category")
+        category = CategoryFactory(name='test_category')
+        assert category.name == 'test_category'
 
 
 class BoardGamesTestCase(TestCase):
-    def test_game(self):
-        BoardGames.objects.create(name='test_game')
-        test_game = BoardGames.objects.get(name='test_game')
-        assert test_game.name == 'test_game'
-        assert test_game.start_player_age == 0
-        assert test_game.category.all().count() == 0
+    def test_game9(self):
+        print(BoardGames.objects.all())
+        #BoardGames.objects.create(name='test_game')
+        game = BoardGamesFactory(name='test_game6')
+        assert game.name == 'test_game6'
+        assert game.start_player_age == 0
+        assert game.category.all().count() == 0
 
 
 class TestModels(TestCase):
