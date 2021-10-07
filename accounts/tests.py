@@ -1,6 +1,5 @@
-from django.test import TestCase
-from rest_framework.test import APIClient
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 
 class SignUpPageTests(TestCase):
@@ -32,14 +31,14 @@ class SignUpPageTests(TestCase):
 class TestStr(TestCase):
 
     def setUp(self):
-        self.client = APIClient()
-        self.user = User.objects.create_user(username="test_user",
-                                             email="user1@test.com", is_staff=True)
+        self.user = User.objects.create_user(
+            username="test_user", email="user1@test.com"
+        )
         self.user.set_password("password1")
         self.user.save()
+        self.client.login(username="test_user", password="password1")
 
     def test_str_is_equal_to_username(self):
-        self.client.force_authenticate(self.user)
         test_user = User.objects.get(username='test_user')
         print(str(test_user))
         assert str(test_user) == test_user.username

@@ -2,6 +2,8 @@ import datetime
 
 import pytest
 from django.test import TestCase
+from django.contrib.auth.models import User
+
 
 from catalog.models import Category, BoardGames, Comment
 
@@ -52,6 +54,7 @@ class TestStr(TestCase):
 
 
 class TestMethodBoardGames(TestCase):
+
     def test_value_error(self):
         with pytest.raises(ValueError) as excinfo:
             game1 = BoardGames.objects.create(name='Catan')
@@ -76,6 +79,12 @@ class TestMethodBoardGames(TestCase):
 
 
 class TestURL(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="test_user", email="user1@test.com")
+        self.user.set_password("password1")
+        self.user.save()
+        self.client.login(username="test_user", password="password1")
+
     def test_view_category_list(self):
         response = self.client.get('/catalog/')
         assert response.status_code == 200
@@ -99,3 +108,9 @@ class TestURL(TestCase):
         assert test_game1.name in str(response1.request)
         assert test_game2.description in str(response2.request)
 
+    def test_view_like_view(self):
+        test_user = User.objects.get(username='test_user')
+        game = BoardGames.objects.create(name='Catan')
+        game.likes.add(test_user.id)
+        assert game.likes.count() == 1
+        assert game.likes.get(id=test_user.id) == test_user
