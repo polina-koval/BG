@@ -1,6 +1,7 @@
-from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from django.db import models
+
+from accounts.models import UserProfile
 
 
 class Category(models.Model):
@@ -48,9 +49,10 @@ class BoardGames(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        print(f"{self.name}")
-        print(f"{BoardGames.objects.filter(name=self.name)}")
-        if BoardGames.objects.filter(name=self.name).exists():
+        if (
+            BoardGames.objects.filter(name__icontains=self.name).exists()
+            and self.id is None
+        ):
             raise ValueError("This game already exists")
         else:
             super().save(*args, **kwargs)
