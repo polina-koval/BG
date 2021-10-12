@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% if games %}
-    <ul>
-        {% for game in games %}
-            <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a></li>
-        {% endfor %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <ul class="list-group">
+        {% if games %}
+            <ul>
+                {% for game in games %}
+                    <li class="list-group-item"><a href="{% url 'catalog:detail' game.id %}">{{ game.name_of_game }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <li class="list-group-item">No games are available.</li>
+        {% endif %}
     </ul>
-{% else %}
-    <p>No games are available.</p>
-{% endif %}
 {% endblock content %}

@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    {% if all_category %}
-        <ul>
-            {% for category in all_category %}
-                {% if category.picture %}
-                    <li><img src="{{ category.picture.url }}" alt="{{ category.name }}" width="50" height="50"><br>
-                        <a href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <ul class="list-group">
+        {% if all_category %}
+            <ul>
+                {% for category in all_category %}
+                    {% if category.picture %}
+                        <li class="list-group-item"><img src="{{ category.picture.url }}" alt="{{ category.name }}" width="50" height="50"><br>
+                            <a href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
+                                ({{ category.boardgames_set.all|length }})</a></li>
+                    {% else %}
+                        <li class="list-group-item"><a href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
                             ({{ category.boardgames_set.all|length }})</a></li>
-                {% else %}
-                    <li><a href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
-                        ({{ category.boardgames_set.all|length }})</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No games are available.</p>
-    {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <li class="list-group-item">No games are available.</li>
+        {% endif %}
+    </ul>
 {% endblock content %}

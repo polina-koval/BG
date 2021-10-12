@@ -1,5 +1,14 @@
-<h1>Search Results</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <ul class="list-group">
+
+        <h1>Search Results</h1>
 
     {% for game in object_list %}
-        <li><a href="{% url 'catalog:detail' game.id %}">{{ game.name }}</a></li>
+        <li class="list-group-item"><a href="{% url 'catalog:detail' game.id %}">{{ game.name }}</a></li>
     {% endfor %}
+    </ul>
+{% endblock %}
