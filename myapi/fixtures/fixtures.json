@@ -1,0 +1,34 @@
+[
+  {
+    "model": "catalog.boardgames",
+    "pk": 1,
+    "fields": {
+      "name": "Party",
+      "start_player_age": 0,
+      "description": "Let's add later",
+      "picture": "",
+      "playing_time": 0,
+      "min_players_number": 1,
+      "max_players_number": 100,
+      "rating_from_the_store": 1,
+      "category": [],
+      "likes": []
+    }
+  },
+  {
+    "model": "catalog.boardgames",
+    "pk": 2,
+    "fields": {
+      "name": "Duel",
+      "start_player_age": 0,
+      "description": "Let's add later",
+      "picture": "",
+      "playing_time": 0,
+      "min_players_number": 1,
+      "max_players_number": 100,
+      "rating_from_the_store": 1,
+      "category": [],
+      "likes": []
+    }
+  }
+]

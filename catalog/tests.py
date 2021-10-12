@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from catalog.factories import BoardGamesFactory, CategoryFactory
-from catalog.models import Category, BoardGames, Comment
+from catalog.models import Comment
 
 
 class CategoryTestCase(TestCase):
