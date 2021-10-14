@@ -22,7 +22,7 @@ Then install the dependencies:
 (venv)$ pip install -r requirements.txt
 ```  
 
-There is a file in the repo ".env.example", this file for use in local development. Duplicate this file as .env in the root of the project and update the environment variable SECRET_KEY.  
+There is a file in the repo ".env.example", this file for use in local development. Duplicate this file as .env in the root of the project and update the environment variables SECRET_KEY, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD.  
 
 ```sh
 $ cp .env.example .env
