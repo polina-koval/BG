@@ -1,4 +1,5 @@
 import datetime
+from unittest.mock import patch
 
 import pytest
 from django.contrib.auth.models import User
@@ -76,6 +77,12 @@ class TestMethodBoardGames(TestCase):
         game1 = BoardGamesFactory(name='Test Game1')
         assert game1.total_likes() == 0
 
+    @patch('catalog.models.datetime.date')
+    def test_is_sale(self, mock_date):
+        mock_date.today.return_value = datetime.datetime(year=2021, month=10, day=15)  # Friday
+        game = BoardGamesFactory()
+        assert game.is_sale() == 'Sale'
+
 
 class TestURL(TestCase):
     def setUp(self):
@@ -107,7 +114,7 @@ class TestURL(TestCase):
         assert test_game1.name in str(response1.request)
         assert test_game2.description in str(response2.request)
 
-    def test_view_like_view(self):
+    def test_view_like_games(self):
         test_user = User.objects.get(username='test_user')
         game = BoardGamesFactory(name='Catan')
         game.likes.add(test_user.id)

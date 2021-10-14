@@ -1,7 +1,13 @@
 from django.contrib.auth.models import User
 from django.db import models
+import datetime
 
 from accounts.models import UserProfile
+
+adulthood = 18
+sale_day = 'Friday'
+rating_for_recommendation = 8
+rating_for_discount = 2
 
 
 class Category(models.Model):
@@ -61,10 +67,14 @@ class BoardGames(models.Model):
         return self.likes.count()
 
     def recommendation(self):
-        return '(Recommend)' if self.rating_from_the_store >= 8 else ''
+        return '(Recommend)' if self.rating_from_the_store >= rating_for_recommendation else ''
+
+    def is_sale(self):
+        today = datetime.date.today().strftime('%A')
+        return 'Sale' if today == sale_day else ''
 
     def age_check(self):
-        return 'Caution, for adults only!' if self.start_player_age >= 18 else ''
+        return 'Caution, for adults only!' if self.start_player_age >= adulthood else ''
 
 
 class Comment(models.Model):

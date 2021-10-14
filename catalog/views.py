@@ -54,7 +54,7 @@ class AddCommentView(CreateView):
 
 
 def like_view(request, pk):
-    game = get_object_or_404(BoardGames, id=request.POST.get("game_id"))
+    game = get_object_or_404(BoardGames, id=pk)
     if game.likes.filter(id=request.user.id).exists():
         game.likes.remove(request.user)
     else:
