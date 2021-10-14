@@ -13,6 +13,7 @@ omit =
    *migrations/*
    *asgi.py
    *wsgi.py
+   *factories.py
 
    *__init__*
    */__pycache__/*

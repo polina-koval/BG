@@ -5,7 +5,7 @@ import datetime
 from accounts.models import UserProfile
 
 ADULTHOOD = 18
-SALE_DAY = 'Thursday'
+SALE_DAY = 'Friday'
 RATING_FOR_RECOMMENDATION = 8
 RATING_FOR_DISCOUNT = 2
 

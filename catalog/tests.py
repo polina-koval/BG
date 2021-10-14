@@ -2,6 +2,7 @@ import datetime
 from unittest.mock import patch
 
 import pytest
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -118,7 +119,12 @@ class TestURL(TestCase):
         test_user = User.objects.get(username='test_user')
         game = BoardGamesFactory(name='Catan')
         game.likes.add(test_user.id)
-        response = self.client.get("/accounts/dashboard/1/likes_games")
+        response_1 = self.client.get("/accounts/dashboard/1/likes_games")
         assert game.likes.count() == 1
         assert game.likes.get(id=test_user.id) == test_user
-        assert response.status_code == 200
+        assert response_1.status_code == 200
+        response_2 = self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
+        assert response_2.status_code == 302
+        assert game.likes.count() == 0
+        response_3 = self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
+        assert game.likes.count() == 1
