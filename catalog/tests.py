@@ -62,14 +62,14 @@ class TestMethodBoardGames(TestCase):
             assert "This game already exists" in str(excinfo.value)
 
     def test_game_is_recommend(self):
-        game1 = BoardGamesFactory(name='Test Game1', rating_from_the_store=10)
-        game2 = BoardGamesFactory(name='Test Game2', rating_from_the_store=2)
+        game1 = BoardGamesFactory(rating_from_the_store=10)
+        game2 = BoardGamesFactory(rating_from_the_store=2)
         assert game1.recommendation() == '(Recommend)'
         assert game2.recommendation() == ''
 
     def test_age_check(self):
-        game_1 = BoardGamesFactory(name='Test Game1', start_player_age=18)
-        game_2 = BoardGamesFactory(name='Test Game2', start_player_age=10)
+        game_1 = BoardGamesFactory(start_player_age=18)
+        game_2 = BoardGamesFactory(start_player_age=10)
         assert game_1.age_check() == 'Caution, for adults only!'
         assert game_2.age_check() == ''
 
@@ -81,7 +81,7 @@ class TestMethodBoardGames(TestCase):
     def test_is_sale(self, mock_date):
         mock_date.today.return_value = datetime.datetime(year=2021, month=10, day=15)  # Friday
         game = BoardGamesFactory()
-        assert game.is_sale() == 'Sale'
+        assert game.is_sale == 'Sale'
 
 
 class TestURL(TestCase):

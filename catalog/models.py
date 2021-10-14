@@ -4,10 +4,10 @@ import datetime
 
 from accounts.models import UserProfile
 
-adulthood = 18
-sale_day = 'Friday'
-rating_for_recommendation = 8
-rating_for_discount = 2
+ADULTHOOD = 18
+SALE_DAY = 'Thursday'
+RATING_FOR_RECOMMENDATION = 8
+RATING_FOR_DISCOUNT = 2
 
 
 class Category(models.Model):
@@ -32,6 +32,7 @@ class BoardGames(models.Model):
     min_players_number = models.IntegerField(default=1)
     max_players_number = models.IntegerField(default=100)
     likes = models.ManyToManyField(User, related_name="game_likes", blank=True)
+    price = models.IntegerField(default=0)
 
     class StoreRating(models.IntegerChoices):
         One = 1
@@ -67,21 +68,22 @@ class BoardGames(models.Model):
         return self.likes.count()
 
     def recommendation(self):
-        return '(Recommend)' if self.rating_from_the_store >= rating_for_recommendation else ''
+        return '(Recommend)' if self.rating_from_the_store >= RATING_FOR_RECOMMENDATION else ''
 
+    @property
     def is_sale(self):
         today = datetime.date.today().strftime('%A')
-        return 'Sale' if today == sale_day else ''
+        return 'Sale' if today == SALE_DAY else ''
 
     def age_check(self):
-        return 'Caution, for adults only!' if self.start_player_age >= adulthood else ''
+        return 'Caution, for adults only!' if self.start_player_age >= ADULTHOOD else ''
 
 
 class Comment(models.Model):
     game = models.ForeignKey(
         BoardGames, related_name="comments", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=225)
+    name = models.CharField(max_length=255)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 

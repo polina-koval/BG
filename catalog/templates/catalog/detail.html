@@ -18,6 +18,8 @@
     {% endif %}
     <b>Store rating:</b>
     {{ game.rating_from_the_store }} out of 10<br>
+    <b>Price ({{ game.is_sale }}):</b>
+    {{ game.price }}$ <br>
     {% if game.picture %}
         <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500" height="600"><br>
     {% endif %}
