@@ -58,8 +58,8 @@ class TestMethodBoardGames(TestCase):
     def test_value_error(self):
         with pytest.raises(ValueError) as excinfo:
             category = CategoryFactory()
-            game1 = BoardGamesFactory(name="CATAN", category=(category,))
-            game2 = BoardGamesFactory(name="Catan", category=(category,))
+            BoardGamesFactory(name="CATAN", category=(category,))
+            BoardGamesFactory(name="Catan", category=(category,))
             assert "This game already exists" in str(excinfo.value)
 
     def test_game_is_recommend(self):
@@ -130,5 +130,5 @@ class TestURL(TestCase):
         response_2 = self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
         assert response_2.status_code == 302
         assert game.likes.count() == 0
-        response_3 = self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
+        self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
         assert game.likes.count() == 1

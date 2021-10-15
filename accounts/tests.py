@@ -60,16 +60,13 @@ class TestUserView(TestCase):
         self.client.login(username="test_user", password="password1")
 
     def test_view_profile_view(self):
-        test_user = User.objects.get(username="test_user")
         response = self.client.get("/accounts/dashboard/")
         assert response.status_code == 200
 
     def test_edit_profile_view(self):
-        test_user = User.objects.get(username="test_user")
         response = self.client.get("/accounts/dashboard/edit")
         assert response.status_code == 200
 
     def test_additional_edit_profile_view(self):
-        test_user = User.objects.get(username="test_user")
         response = self.client.get("/accounts/dashboard/additional_edit")
         assert response.status_code == 200
