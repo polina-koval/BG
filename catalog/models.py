@@ -73,7 +73,11 @@ class BoardGames(models.Model):
     @property
     def is_sale(self):
         today = datetime.date.today().strftime('%A')
-        return 'Sale' if today == SALE_DAY else ''
+        if today == SALE_DAY and self.rating_from_the_store < 4:
+            self.price = 0.8*self.price  # 20% discount
+            return 'Sale'
+        else:
+            return ''
 
     def age_check(self):
         return 'Caution, for adults only!' if self.start_player_age >= ADULTHOOD else ''

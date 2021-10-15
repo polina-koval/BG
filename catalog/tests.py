@@ -81,8 +81,12 @@ class TestMethodBoardGames(TestCase):
     @patch('catalog.models.datetime.date')
     def test_is_sale(self, mock_date):
         mock_date.today.return_value = datetime.datetime(year=2021, month=10, day=15)  # Friday
-        game = BoardGamesFactory()
+        game = BoardGamesFactory(price=100, rating_from_the_store=5)
+        assert game.is_sale == ''
+        assert game.price == 100
+        game.rating_from_the_store = 2
         assert game.is_sale == 'Sale'
+        assert game.price == 80
 
 
 class TestURL(TestCase):
