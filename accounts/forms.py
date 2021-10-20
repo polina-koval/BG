@@ -40,6 +40,7 @@ class RegistrationForm(UserCreationForm):
 
         return user
 
+
 class ProfileForm(UserChangeForm):
     class Meta:
         model = UserProfile

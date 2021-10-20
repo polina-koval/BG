@@ -50,6 +50,7 @@ class AddCommentView(CreateView):
 
     def form_valid(self, form):
         form.instance.game_id = self.kwargs["pk"]
+        form.instance.owner = self.request.user.userprofile
         return super().form_valid(form)
 
 

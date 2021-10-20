@@ -84,12 +84,14 @@ class BoardGames(models.Model):
 
 
 class Comment(models.Model):
+    owner = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, null=True, blank=True
+    )
     game = models.ForeignKey(
         BoardGames, related_name="comments", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=255)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.game.name} - {self.name}"
+        return f"{self.game.name} - {self.owner}"

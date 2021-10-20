@@ -39,7 +39,7 @@
         No Comments Yet <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
     {% else %}
         {% for comment in game.comments.all %}
-            <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+            <strong>{{ comment.owner }} - {{ comment.date_added }}</strong>
             <br/>
             {{ comment.body }}
             <br/><br/>
