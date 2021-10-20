@@ -2,7 +2,7 @@ from django.urls import path
 
 from accounts.views import (EditProfile,
                             LikedGameListView, PasswordsChangeView,
-                            ProfileListView, SignUpView)
+                            ProfileListView, SignUpView, CommentsFromUser)
 
 app_name = "accounts"
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path("dashboard/edit", EditProfile.as_view(), name="edit_profile"),
     path("password/", PasswordsChangeView.as_view(), name="change_password"),
     path("dashboard/<id>/likes_games", LikedGameListView.as_view(), name="liked_games"),
+    path("dashboard/<id>/comments", CommentsFromUser.as_view(), name="comments_from_user"),
 ]

@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h1>Profile</h1>
 <p>Username: {{ user }}</p>
 <p>First name: {{ user.first_name }}</p>
@@ -7,8 +11,8 @@
 <p>Bio: {{ user.userprofile.bio }}</p>
 <p>Birthday: {{ user.userprofile.birth_date }}</p>
 Liked games :<a href="{% url 'accounts:liked_games' user.id %}"> Show list</a><br><br>
+Comments :<a href="{% url 'accounts:comments_from_user' user.userprofile.id %}"> Show list</a><br><br>
 <a href='{% url 'accounts:edit_profile' %}'>Edit Profile</a>
 <a href='{% url 'catalog:category_list' %}'>Home page</a>
-{% for comment in user.userprofile.comment_set.all  %}
-    <p>Comments: {{ comment.body }} </p>
-{% endfor %}
+
+{% endblock %}

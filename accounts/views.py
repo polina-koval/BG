@@ -6,6 +6,7 @@ from django.views import generic
 from django.views.generic import ListView
 
 from accounts.forms import ProfileForm, RegistrationForm
+from accounts.models import UserProfile
 
 
 class SignUpView(generic.CreateView):
@@ -45,4 +46,18 @@ class LikedGameListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["games"] = User.objects.get(id=self.kwargs.get("id")).game_likes.all()
+        return context
+
+
+class CommentsFromUser(ListView):
+    model = UserProfile
+    template_name = "accounts/comment_from_user.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = (
+            UserProfile.objects.get(id=self.kwargs.get("id"))
+            .comment_set.all()
+            .order_by("-date_added")
+        )
         return context

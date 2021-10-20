@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from accounts.models import UserProfile
 from django.test import TestCase
+
+from accounts.models import UserProfile
 
 
 class SignUpPageTests(TestCase):

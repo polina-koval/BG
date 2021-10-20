@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <a href="{% url 'catalog:detail' comment.game_id %}">{{ comment.game.name }}</a>
+                    <p>{{ comment.body }} by {{ comment.date_added }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No comments ...</p>
+    {% endif %}
+{% endblock content %}
+

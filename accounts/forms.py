@@ -1,8 +1,9 @@
+import os
+
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-import os
 from dotenv import load_dotenv
 
 from accounts.models import UserProfile
