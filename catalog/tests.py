@@ -26,7 +26,7 @@ class BoardGamesTestCase(TestCase):
         assert game.category.all().count() == 0
 
 
-class TestModels(TestCase):
+class TestModelsBoardGamesCategoryTogether(TestCase):
     def test_game_has_an_category(self):
         game = BoardGamesFactory(name='Catan')
         strategy = CategoryFactory(name='strategy')

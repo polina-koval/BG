@@ -1,11 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    email = models.EmailField(max_length=500, blank=True, null=True)
+    username = models.CharField(max_length=200, blank=True, null=True)
     city = models.CharField(max_length=100, default="")
     bio = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -14,12 +17,36 @@ class UserProfile(models.Model):
         return str(self.user)
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_profile(sender, instance, created, **kwargs):
     if created:
-        UserProfile.objects.create(user=instance)
+        user = instance
+        userprofile = UserProfile.objects.create(
+            user=user,
+            username=user.username,
+            email=user.email,
+            name=user.first_name,
+        )
 
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
+def update_user(sender, instance, created, **kwargs):
+    userprofile = instance
+    user = userprofile.user
+
+    if not created:
+        user.first_name = userprofile.name
+        user.username = userprofile.username
+        user.email = userprofile.email
+        user.save()
+
+
+def delete_user(sender, instance, **kwargs):
+    try:
+        user = instance.user
+        user.delete()
+    except:
+        pass
+
+
+post_save.connect(create_profile, sender=User)
+post_save.connect(update_user, sender=UserProfile)
+post_delete.connect(delete_user, sender=UserProfile)

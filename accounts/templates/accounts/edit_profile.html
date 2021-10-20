@@ -1,7 +1,6 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <a href='{% url 'accounts:additional_edit_profile' %}'>Edit additional information</a><br>
     <button type="submit">Submit</button>
 </form>
 <br>

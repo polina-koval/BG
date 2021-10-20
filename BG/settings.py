@@ -168,7 +168,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = '/catalog/'
 LOGOUT_REDIRECT_URL = '/catalog/'
 
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',]
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', ]
 
 DEFAULT_FROM_EMAIL = '<paste your gmail account here>'
 

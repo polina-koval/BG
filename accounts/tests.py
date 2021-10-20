@@ -66,7 +66,3 @@ class TestUserView(TestCase):
     def test_edit_profile_view(self):
         response = self.client.get("/accounts/dashboard/edit")
         assert response.status_code == 200
-
-    def test_additional_edit_profile_view(self):
-        response = self.client.get("/accounts/dashboard/additional_edit")
-        assert response.status_code == 200

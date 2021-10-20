@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
 
-from accounts.forms import EditProfileForm, ProfileForm, RegistrationForm
+from accounts.forms import ProfileForm, RegistrationForm
 
 
 class SignUpView(generic.CreateView):
@@ -24,18 +24,9 @@ class ProfileListView(ListView):
 
 
 class EditProfile(generic.UpdateView):
-    form_class = EditProfileForm
-    success_url = reverse_lazy("accounts:view_profile")
-    template_name = "accounts/edit_profile.html"
-
-    def get_object(self):
-        return self.request.user
-
-
-class AdditionalEditProfile(generic.UpdateView):
     form_class = ProfileForm
     success_url = reverse_lazy("accounts:view_profile")
-    template_name = "accounts/additional_edit_profile.html"
+    template_name = "accounts/edit_profile.html"
 
     def get_object(self):
         return self.request.user.userprofile

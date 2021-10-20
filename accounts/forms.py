@@ -40,17 +40,13 @@ class RegistrationForm(UserCreationForm):
 
         return user
 
-
-class EditProfileForm(UserChangeForm):
-    class Meta:
-        model = User
-        fields = ("email", "first_name", "last_name", "id")
-
-
 class ProfileForm(UserChangeForm):
     class Meta:
         model = UserProfile
         fields = (
+            "name",
+            "email",
+            "username",
             "city",
             "bio",
             "birth_date",
