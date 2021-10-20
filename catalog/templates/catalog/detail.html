@@ -21,7 +21,8 @@
     <b>Price {{ game.is_sale }}:</b>
     {{ game.price }}$ <br>
     {% if game.picture %}
-        <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500" height="600"><br>
+        <img src="{{ game.picture.url }}" alt="{{ name_game }}" width="500"
+             height="600"><br>
     {% endif %}
     <i>{{ game.description }}</i><br>
     <br/><br/>
@@ -29,14 +30,18 @@
     <br/>
     <form action="{% url 'catalog:like_game' game.pk %}" method="POST">
         {% csrf_token %}
-        <button type="submit" , name="game_id" , value="{{ game.id }}">Like</button>
+        <button type="submit" , name="game_id" , value="{{ game.id }}">Like
+        </button>
         - {{ game.total_likes }} Likes
     </form>
 
     <hr>
     <h2>Comments</h2>
     {% if not game.comments.all %}
-        No Comments Yet <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
+        {% if user.is_authenticated %}
+            Add comment
+            <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
+        {% endif %}
     {% else %}
         {% for comment in game.comments.all %}
             <strong>{{ comment.owner }} - {{ comment.date_added }}</strong>
@@ -44,7 +49,6 @@
             {{ comment.body }}
             <br/><br/>
         {% endfor %}
-        Add comment <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
     {% endif %}
 
     <hr>

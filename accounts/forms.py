@@ -21,6 +21,8 @@ class RegistrationForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
+            "password1",
+            "password2"
         )
 
     def save(self, commit=True):
