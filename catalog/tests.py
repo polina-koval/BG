@@ -47,7 +47,8 @@ class TestStr(TestCase):
 
     def test_str_comment(self):
         game = BoardGamesFactory(name='Test Game')
-        comment = Comment.objects.create(name='Test Name', body='Test comment', date_added=datetime.datetime.now(),
+        comment = Comment.objects.create(name='Test Name', body='Test comment',
+                                         date_added=datetime.datetime.now(),
                                          game_id=1)
         game.comments.add(comment)
         assert str(comment) == f"{comment.game.name} - {comment.name}"
@@ -80,7 +81,8 @@ class TestMethodBoardGames(TestCase):
 
     @patch('catalog.models.datetime.date')
     def test_is_sale(self, mock_date):
-        mock_date.today.return_value = datetime.datetime(year=2021, month=10, day=15)  # Friday
+        mock_date.today.return_value = \
+            datetime.datetime(year=2021, month=10, day=15)  # Friday
         game = BoardGamesFactory(price=100, rating_from_the_store=5)
         assert game.is_sale == ''
         assert game.price == 100
@@ -91,7 +93,8 @@ class TestMethodBoardGames(TestCase):
 
 class TestURL(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="test_user", email="user1@test.com")
+        self.user = User.objects.create_user(username="test_user",
+                                             email="user1@test.com")
         self.user.set_password("password1")
         self.user.save()
         self.client.login(username="test_user", password="password1")
@@ -111,9 +114,11 @@ class TestURL(TestCase):
 
     def test_view_search_result(self):
         test_game1 = BoardGamesFactory(name='TestGame1')
-        test_game2 = BoardGamesFactory(name='TestGame2', description="TestDescriptionForGame")
+        test_game2 = BoardGamesFactory(name='TestGame2',
+                                       description="TestDescriptionForGame")
         response1 = self.client.get('/catalog/search/?q=TestGame1/')
-        response2 = self.client.get('/catalog/search/?q=TestDescriptionForGame/')
+        response2 = self.client.get(
+            '/catalog/search/?q=TestDescriptionForGame/')
         assert response1.status_code == 200
         assert response2.status_code == 200
         assert test_game1.name in str(response1.request)
@@ -127,7 +132,8 @@ class TestURL(TestCase):
         assert game.likes.count() == 1
         assert game.likes.get(id=test_user.id) == test_user
         assert response_1.status_code == 200
-        response_2 = self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))
+        response_2 = self.client.get(reverse('catalog:like_game',
+                                             args=[str(game.pk)]))
         assert response_2.status_code == 302
         assert game.likes.count() == 0
         self.client.get(reverse('catalog:like_game', args=[str(game.pk)]))

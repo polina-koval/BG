@@ -46,7 +46,8 @@ class BoardGames(models.Model):
         Nine = 9
         Ten = 10
 
-    rating_from_the_store = models.IntegerField(choices=StoreRating.choices, default=1)
+    rating_from_the_store = models.IntegerField(choices=StoreRating.choices,
+                                                default=1)
 
     class Meta:
         verbose_name = "Board Game"
@@ -68,19 +69,21 @@ class BoardGames(models.Model):
         return self.likes.count()
 
     def recommendation(self):
-        return '(Recommend)' if self.rating_from_the_store >= RATING_FOR_RECOMMENDATION else ''
+        return '(Recommend)' if self.rating_from_the_store >= \
+                                RATING_FOR_RECOMMENDATION else ''
 
     @property
     def is_sale(self):
         today = datetime.date.today().strftime('%A')
         if today == SALE_DAY and self.rating_from_the_store < 4:
-            self.price = 0.8*self.price  # 20% discount
+            self.price = 0.8 * self.price  # 20% discount
             return 'Sale'
         else:
             return ''
 
     def age_check(self):
-        return 'Caution, for adults only!' if self.start_player_age >= ADULTHOOD else ''
+        return 'Caution, for adults only!' if self.start_player_age >=\
+                                              ADULTHOOD else ''
 
 
 class Comment(models.Model):

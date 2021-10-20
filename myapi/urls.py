@@ -11,7 +11,8 @@ router.register(r"all_users", myapiviews.UserViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api-auth/", include("rest_framework.urls",
+                              namespace="rest_framework")),
 ]
 
 urlpatterns += [path("api-token-auth/", views.obtain_auth_token)]

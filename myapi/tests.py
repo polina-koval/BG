@@ -8,7 +8,9 @@ from catalog.models import BoardGames, Category
 class TestBoardGamesAPIViews(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = User.objects.create_user(username="test_user", email="user1@test.com", is_staff=True)
+        self.user = User.objects.create_user(username="test_user",
+                                             email="user1@test.com",
+                                             is_staff=True)
         self.user.set_password("password1")
         self.user.save()
 
@@ -33,5 +35,6 @@ class TestBoardGamesAPIViews(TestCase):
         response = self.client.get("/all_games/")
         test_game = BoardGames.objects.get(name="Party")
         assert "Party", "Duel" in response.json()
-        assert test_game.name == "Party", test_game.model == "catalog.boardgames"
+        assert test_game.name == "Party", \
+            test_game.model == "catalog.boardgames"
         assert response.status_code == 200

@@ -5,7 +5,8 @@ from rest_framework import serializers
 
 class BoardGamesSerializer(serializers.HyperlinkedModelSerializer):
     likes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    total_likes = serializers.IntegerField(source="likes.count", read_only=True)
+    total_likes = serializers.IntegerField(source="likes.count",
+                                           read_only=True)
 
     class Meta:
         model = BoardGames
@@ -25,4 +26,5 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "game_likes"]
+        fields = ["id", "username", "email", "first_name",
+                  "last_name", "game_likes"]
