@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=500, blank=True, null=True)
     username = models.CharField(max_length=200, blank=True, null=True)
-    city = models.CharField(max_length=100, default="")
+    city = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 
@@ -19,7 +19,7 @@ class UserProfile(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         user = instance
-        userprofile = UserProfile.objects.create(
+        UserProfile.objects.create(
             user=user,
             username=user.username,
             email=user.email,
@@ -39,11 +39,9 @@ def update_user(sender, instance, created, **kwargs):
 
 
 def delete_user(sender, instance, **kwargs):
-    try:
-        user = instance.user
+    user = instance.user
+    if user:
         user.delete()
-    except:
-        pass
 
 
 post_save.connect(create_profile, sender=User)
