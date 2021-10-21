@@ -38,10 +38,7 @@
     <hr>
     <h2>Comments</h2>
     {% if not game.comments.all %}
-        {% if user.is_authenticated %}
-            Add comment
-            <a href="{% url 'catalog:add_comment' game.pk %}">Add One</a>
-        {% endif %}
+
     {% else %}
         {% for comment in game.comments.all %}
             <strong>{{ comment.owner }} - {{ comment.date_added }}</strong>
@@ -50,6 +47,8 @@
             <br/><br/>
         {% endfor %}
     {% endif %}
-
+    {% if user.is_authenticated %}
+        <a href="{% url 'catalog:add_comment' game.pk %}">Add comment</a>
+    {% endif %}
     <hr>
 {% endblock content %}
