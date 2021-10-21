@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.views import generic
@@ -11,8 +13,16 @@ from accounts.models import UserProfile
 
 class SignUpView(generic.CreateView):
     form_class = RegistrationForm
-    success_url = reverse_lazy("catalog:category_list")
+    #success_url = reverse_lazy("accounts:edit_profile")
     template_name = "accounts/signup.html"
+
+    def form_valid(self, form, success_url):
+        form.save()
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return HttpResponseRedirect(reverse_lazy("accounts:edit_profile"))
 
 
 class ProfileListView(ListView):

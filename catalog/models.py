@@ -83,7 +83,7 @@ class BoardGames(models.Model):
 
     def age_check(self):
         return 'Caution, for adults only!' if self.start_player_age >=\
-                                              ADULTHOOD else ''
+                                               ADULTHOOD else ''
 
 
 class Comment(models.Model):

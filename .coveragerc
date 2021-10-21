@@ -14,6 +14,7 @@ omit =
    *asgi.py
    *wsgi.py
    *factories.py
+   *test*.py
 
    *__init__*
    */__pycache__/*
