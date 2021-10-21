@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from catalog.factories import BoardGamesFactory, CategoryFactory
-from catalog.models import Comment
+from catalog.models import Comment, UserProfile
 
 
 class CategoryTestCase(TestCase):
@@ -37,6 +37,13 @@ class TestModelsBoardGamesCategoryTogether(TestCase):
 
 
 class TestStr(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="test_user",
+                                             email="user1@test.com")
+        self.user.set_password("password1")
+        self.user.save()
+        self.client.login(username="test_user", password="password1")
+
     def test_str_is_equal_to_category_name(self):
         category = CategoryFactory(name='strategy')
         assert str(category) == category.name
@@ -47,11 +54,13 @@ class TestStr(TestCase):
 
     def test_str_comment(self):
         game = BoardGamesFactory(name='Test Game')
-        comment = Comment.objects.create(name='Test Name', body='Test comment',
+        test_user = UserProfile.objects.get(username='test_user')
+        comment = Comment.objects.create(body='Test comment',
                                          date_added=datetime.datetime.now(),
                                          game_id=1)
         game.comments.add(comment)
-        assert str(comment) == f"{comment.game.name} - {comment.name}"
+        test_user.comment_set.add(comment)
+        assert str(comment) == f"{comment.game.name} - {comment.owner}"
 
 
 class TestMethodBoardGames(TestCase):
