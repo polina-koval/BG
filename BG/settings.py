@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'django_extensions',
+    "anymail",
 ]
 
 MIDDLEWARE = [
@@ -170,10 +171,19 @@ LOGOUT_REDIRECT_URL = '/catalog/'
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', ]
 
-DEFAULT_FROM_EMAIL = '<paste your gmail account here>'
 
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": "4d03f956e6000e1d0ae81db649f2e391-10eedde5-4ada43d6",
+    "MAILGUN_SENDER_DOMAIN": 'sandbox00a6fae428d64c1d98ed013b1b96df12.mailgun.org',  # your Mailgun domain, if needed
+}
+# SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = "you@example.com"  # if you don't already have this in settings
+EMAIL_HOST = 'smtp.mailgun.org'
+# EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587

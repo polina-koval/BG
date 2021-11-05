@@ -13,10 +13,10 @@ from accounts.models import UserProfile
 
 class SignUpView(generic.CreateView):
     form_class = RegistrationForm
-    #success_url = reverse_lazy("accounts:edit_profile")
+    success_url = reverse_lazy("accounts:edit_profile")
     template_name = "accounts/signup.html"
 
-    def form_valid(self, form, success_url):
+    def form_valid(self, form):
         form.save()
         username = self.request.POST['username']
         password = self.request.POST['password1']
