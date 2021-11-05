@@ -17,4 +17,6 @@ urlpatterns = [
         name="add_comment"
     ),
     path("like/<pk>", views.like_view, name="like_game"),
+    path("cheap_game", views.CheapGameListView.as_view(), name="cheap_game"),
+
 ]

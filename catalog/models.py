@@ -22,6 +22,11 @@ class Category(models.Model):
         return self.name
 
 
+class LowCostGamesManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(price__lt=5)
+
+
 class BoardGames(models.Model):
     name = models.CharField(max_length=200)
     start_player_age = models.IntegerField(default=0)
@@ -48,6 +53,8 @@ class BoardGames(models.Model):
 
     rating_from_the_store = models.IntegerField(choices=StoreRating.choices,
                                                 default=1)
+    objects = models.Manager()
+    cheap_games = LowCostGamesManager()
 
     class Meta:
         verbose_name = "Board Game"

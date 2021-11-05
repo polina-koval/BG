@@ -19,10 +19,21 @@ class GameListView(DetailView):
         return context
 
 
+class CheapGameListView(ListView):
+    queryset = BoardGames.cheap_games.all()
+    context_object_name = "games"
+    template_name = "catalog/cheap_game.html"
+
+
 class CategoryListView(ListView):
-    queryset = Category.objects.all()
-    context_object_name = "all_category"
+    model = Category
     template_name = "catalog/category_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["all_category"] = Category.objects.all()
+        context["cheap_games"] = BoardGames.cheap_games.all()
+        return context
 
 
 class DetailViewGame(DetailView):
