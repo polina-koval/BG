@@ -7,6 +7,7 @@
           crossorigin="anonymous">
     <ul class="list-group">
         {% if all_category %}
+            <li class="list-group-item">We already have {{ games_amount|length }} games with an average price of {{ average_price.price__avg|floatformat }}$ !Join us &#128521</li>
             <ul>
                 {% for category in all_category %}
                     {% if category.picture %}

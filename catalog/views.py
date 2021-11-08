@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count, Avg
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -33,6 +33,8 @@ class CategoryListView(ListView):
         context = super().get_context_data(**kwargs)
         context["all_category"] = Category.objects.all()
         context["cheap_games"] = BoardGames.cheap_games.all()
+        context["games_amount"] = Category.objects.annotate(games_amount=Count('boardgames'))
+        context["average_price"] = BoardGames.objects.all().aggregate(Avg('price'))
         return context
 
 
