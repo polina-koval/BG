@@ -7,7 +7,11 @@
           crossorigin="anonymous">
     <ul class="list-group">
         {% if all_category %}
-            <li class="list-group-item">We already have {{ games_amount|length }} games with an average price of {{ average_price.price__avg|floatformat }}$ !Join us &#128521</li>
+            <li class="list-group-item">We already
+                have {{ games_amount|length }} games with an average price
+                of {{ average_price.price__avg|floatformat }}$ !Join us
+                &#128521
+            </li>
             <ul>
                 {% for category in all_category %}
                     {% if category.picture %}
@@ -20,12 +24,11 @@
                         </li>
                     {% else %}
                         <li class="list-group-item"><a
-                                href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
-                            ({{ category.boardgames_set.all|length }})</a></li>
+                                href="{% url 'catalog:game_list' category.id %}">{{ category.name }}</a></li>
                     {% endif %}
                 {% endfor %}
-                <li class="list-group-item"><a href="{% url 'catalog:cheap_game' %}">{{ "Cheap games" }}
-                    ({{ cheap_games|length }})</a></li>
+                <li class="list-group-item"><a
+                        href="{% url 'catalog:cheap_game' %}">{{ "Cheap games" }}</a></li>
             </ul>
         {% else %}
             <li class="list-group-item">No games are available.</li>

@@ -51,8 +51,14 @@ class BoardGames(models.Model):
         Nine = 9
         Ten = 10
 
+    class StatusChoices(models.TextChoices):
+        DRAFT = 'Draft'
+        PUBLISHED = 'Published'
+
     rating_from_the_store = models.IntegerField(choices=StoreRating.choices,
                                                 default=1)
+    status = models.CharField(max_length=10, choices=StatusChoices.choices,
+                              default='Draft')
     objects = models.Manager()
     cheap_games = LowCostGamesManager()
 

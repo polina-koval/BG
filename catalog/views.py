@@ -1,4 +1,4 @@
-from django.db.models import Q, Count, Avg
+from django.db.models import Avg, Count, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -15,12 +15,16 @@ class GameListView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["games"] = BoardGames.objects.filter(
-            category=self.kwargs.get("pk"))
+            category=self.kwargs.get("pk"),
+            status=BoardGames.StatusChoices.PUBLISHED,
+        )
         return context
 
 
 class CheapGameListView(ListView):
-    queryset = BoardGames.cheap_games.all()
+    queryset = BoardGames.cheap_games.filter(
+        status=BoardGames.StatusChoices.PUBLISHED
+    )
     context_object_name = "games"
     template_name = "catalog/cheap_game.html"
 
@@ -32,9 +36,15 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["all_category"] = Category.objects.all()
-        context["cheap_games"] = BoardGames.cheap_games.all()
-        context["games_amount"] = Category.objects.annotate(games_amount=Count('boardgames'))
-        context["average_price"] = BoardGames.objects.all().aggregate(Avg('price'))
+        context["cheap_games"] = BoardGames.cheap_games.filter(
+            status=BoardGames.StatusChoices.PUBLISHED
+        )
+        context["games_amount"] = Category.objects.filter(
+            boardgames__status=BoardGames.StatusChoices.PUBLISHED
+        )
+        context["average_price"] = BoardGames.objects.filter(
+            status=BoardGames.StatusChoices.PUBLISHED
+        ).aggregate(Avg("price"))
         return context
 
 
@@ -51,7 +61,8 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         object_list = BoardGames.objects.filter(
-            Q(name__icontains=query) | Q(description__icontains=query)
+            (Q(name__icontains=query) | Q(description__icontains=query)),
+            status=BoardGames.StatusChoices.PUBLISHED,
         )
         return object_list
 
