@@ -8,7 +8,7 @@
     <ul class="list-group">
         {% if all_category %}
             <li class="list-group-item">We already
-                have {{ games_amount|length }} games with an average price
+                have {{ quantity }} games with an average price
                 of {{ average_price.price__avg|floatformat }}$ !Join us
                 &#128521
             </li>
@@ -24,7 +24,8 @@
                         </li>
                     {% else %}
                         <li class="list-group-item"><a
-                                href="{% url 'catalog:game_list' category.id %}">{{ category.name }}</a></li>
+                                href="{% url 'catalog:game_list' category.id %}">{{ category.name }}
+                        ({{ category.boardgames_set.all|length }}) </a></li>
                     {% endif %}
                 {% endfor %}
                 <li class="list-group-item"><a

@@ -39,12 +39,14 @@ class CategoryListView(ListView):
         context["cheap_games"] = BoardGames.cheap_games.filter(
             status=BoardGames.StatusChoices.PUBLISHED
         )
-        context["games_amount"] = Category.objects.filter(
-            boardgames__status=BoardGames.StatusChoices.PUBLISHED
-        )
         context["average_price"] = BoardGames.objects.filter(
             status=BoardGames.StatusChoices.PUBLISHED
         ).aggregate(Avg("price"))
+        context["quantity"] = (
+            BoardGames.objects.annotate(quantity=Count("category"))
+            .filter(status=BoardGames.StatusChoices.PUBLISHED)
+            .count()
+        )
         return context
 
 
