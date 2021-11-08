@@ -35,7 +35,7 @@ class RegistrationForm(UserCreationForm):
             send_mail(
                 "Your registration in BG",
                 "Congratulation! Have a good board game experience!",
-                "Anymail Sender <postmaster@sandbox00a6fae428d64c1d98ed013b1b96df12.mailgun.org>",
+                "BG Administrator <no-reply@bg.com>",
                 [user.email]
             )
             user.save()

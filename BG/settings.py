@@ -174,8 +174,8 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', ]
 
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": "4d03f956e6000e1d0ae81db649f2e391-10eedde5-4ada43d6",
-    "MAILGUN_SENDER_DOMAIN": 'sandbox00a6fae428d64c1d98ed013b1b96df12.mailgun.org',  # your Mailgun domain, if needed
+    "MAILGUN_API_KEY": os.getenv('MAILGUN_API_KEY'),
+    "MAILGUN_SENDER_DOMAIN": os.getenv('MAILGUN_SENDER_DOMAIN'),  # your Mailgun domain, if needed
 }
 # SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
 
