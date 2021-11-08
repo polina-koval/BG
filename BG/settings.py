@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_extensions',
     "anymail",
+    'django_json_widget',
 ]
 
 MIDDLEWARE = [
@@ -109,13 +110,23 @@ WSGI_APPLICATION = 'BG.wsgi.application'
 #         'PORT': 5432,
 #     }
 # }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'myuser',
+        'PASSWORD': 'mypass',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

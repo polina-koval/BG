@@ -61,6 +61,7 @@ class BoardGames(models.Model):
                               default='Draft')
     objects = models.Manager()
     cheap_games = LowCostGamesManager()
+    data = models.JSONField(null=True)
 
     class Meta:
         verbose_name = "Board Game"
