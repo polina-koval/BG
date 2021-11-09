@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_extensions',
     "anymail",
     'django_json_widget',
+    'api_graphene',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +151,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+GRAPHENE = {
+    "SCHEMA": "api_graphene.schema.schema"
+}
 
 LANGUAGE_CODE = 'en-en'
 
