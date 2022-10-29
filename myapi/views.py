@@ -1,13 +1,13 @@
-from catalog.models import BoardGames, Category
 from django.contrib.auth.models import User
 from rest_framework import filters, viewsets
 from rest_framework.authentication import (BasicAuthentication,
-                                           SessionAuthentication)
+    SessionAuthentication, )
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
+from catalog.models import BoardGames, Category
 from myapi.serializers import (BoardGamesSerializer, CategoryGamesSerializer,
-                               UserSerializer)
+    UserSerializer, )
 
 
 class CategoryGamesViewSet(viewsets.ModelViewSet):

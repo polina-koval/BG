@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -18,17 +17,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BoardGames',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
                 ('start_player_age', models.IntegerField(default=0)),
                 ('description', models.TextField(default="Let's add later")),
-                ('picture', models.ImageField(blank=True, upload_to='images/')),
+                (
+                'picture', models.ImageField(blank=True, upload_to='images/')),
                 ('playing_time', models.IntegerField(default=0)),
                 ('min_players_number', models.IntegerField(default=1)),
                 ('max_players_number', models.IntegerField(default=100)),
                 ('price', models.IntegerField(default=0)),
-                ('rating_from_the_store', models.IntegerField(choices=[(1, 'One'), (2, 'Two'), (3, 'Three'), (4, 'Four'), (5, 'Five'), (6, 'Six'), (7, 'Seven'), (8, 'Eight'), (9, 'Nine'), (10, 'Ten')], default=1)),
-                ('status', models.CharField(choices=[('Draft', 'Draft'), ('Published', 'Published')], default='Draft', max_length=10)),
+                ('rating_from_the_store', models.IntegerField(choices=[
+                    (1, 'One'), (2, 'Two'), (3, 'Three'), (4, 'Four'),
+                    (5, 'Five'), (6, 'Six'), (7, 'Seven'), (8, 'Eight'),
+                    (9, 'Nine'), (10, 'Ten')], default=1)),
+                ('status', models.CharField(
+                    choices=[('Draft', 'Draft'), ('Published', 'Published')],
+                    default='Draft', max_length=10)),
                 ('data', models.JSONField(blank=True, null=True)),
             ],
             options={
@@ -39,9 +46,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(default='Without category', max_length=200)),
-                ('picture', models.ImageField(blank=True, upload_to='images/')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
+                ('name',
+                 models.CharField(default='Without category', max_length=200)),
+                (
+                'picture', models.ImageField(blank=True, upload_to='images/')),
             ],
             options={
                 'verbose_name': 'Category name',
@@ -51,11 +62,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('body', models.TextField()),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='catalog.boardgames')),
-                ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='accounts.userprofile')),
+                ('game',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   related_name='comments',
+                                   to='catalog.boardgames')),
+                ('owner', models.ForeignKey(blank=True, null=True,
+                                            on_delete=django.db.models.deletion.CASCADE,
+                                            to='accounts.userprofile')),
             ],
         ),
         migrations.AddField(
@@ -66,6 +84,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='boardgames',
             name='likes',
-            field=models.ManyToManyField(blank=True, related_name='game_likes', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(blank=True, related_name='game_likes',
+                                         to=settings.AUTH_USER_MODEL),
         ),
     ]

@@ -39,7 +39,7 @@ class EditProfile(generic.UpdateView):
     success_url = reverse_lazy("accounts:view_profile")
     template_name = "accounts/edit_profile.html"
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return self.request.user.userprofile
 
 

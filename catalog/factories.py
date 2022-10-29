@@ -1,4 +1,5 @@
 import factory
+
 from catalog.models import Category, BoardGames
 
 
