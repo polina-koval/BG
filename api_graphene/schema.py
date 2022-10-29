@@ -91,7 +91,7 @@ class CreateBoardGames(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, board_games_data=None):
-        category, created = Category.objects.get_or_create(
+        category, _ = Category.objects.get_or_create(
             name=board_games_data.category
         )
         boardgames = BoardGames.objects.create(

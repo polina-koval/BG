@@ -1,6 +1,6 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
-import datetime
 
 from accounts.models import UserProfile
 
@@ -76,8 +76,7 @@ class BoardGames(models.Model):
             and self.id is None
         ):
             raise ValueError("This game already exists")
-        else:
-            super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def total_likes(self):
         return self.likes.count()
@@ -92,8 +91,7 @@ class BoardGames(models.Model):
         if today == SALE_DAY and self.rating_from_the_store < 4:
             self.price = 0.8 * self.price  # 20% discount
             return 'Sale'
-        else:
-            return ''
+        return ''
 
     def age_check(self):
         return 'Caution, for adults only!' if self.start_player_age >=\

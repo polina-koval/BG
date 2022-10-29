@@ -1,5 +1,5 @@
-from catalog.models import BoardGames, Category
 from django.contrib.auth.models import User
+from catalog.models import BoardGames, Category
 from rest_framework import serializers
 
 
