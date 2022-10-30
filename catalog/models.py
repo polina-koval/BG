@@ -2,7 +2,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
-from accounts.models import UserProfile, Cart
+from accounts.models import UserProfile
 
 ADULTHOOD = 18
 SALE_DAY = 'Friday'
