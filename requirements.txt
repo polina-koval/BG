@@ -68,5 +68,6 @@ typing-extensions==3.10.0.2
 urllib3==1.26.7
 virtualenv==20.10.0
 wcwidth==0.2.5
+weasyprint==57.0
 
 graphene~=2.1.9
