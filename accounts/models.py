@@ -1,6 +1,8 @@
+import uuid
+
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_delete, post_save
 
 
 class UserProfile(models.Model):
@@ -47,3 +49,27 @@ def delete_user(sender, instance, **kwargs):
 post_save.connect(create_profile, sender=User)
 post_save.connect(update_user, sender=UserProfile)
 post_delete.connect(delete_user, sender=UserProfile)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    games = models.ManyToManyField("catalog.BoardGames")
+
+    def __str__(self):
+        return f"{self.user} cart"
+
+
+class Receipt(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    document = models.FileField(upload_to="checks/", blank=True, null=True)
+    unique_number = models.CharField(
+        primary_key=True, default=uuid.uuid4(), max_length=50, editable=False
+    )
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.unique_number)
