@@ -1,8 +1,11 @@
 import uuid
 
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
 from django.db import models
 from django.db.models.signals import post_delete, post_save
+from django.template.loader import render_to_string
+from weasyprint import HTML
 
 
 class UserProfile(models.Model):
@@ -67,9 +70,18 @@ class Receipt(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        if self.pk is None:
+        if not self.document:
+            doc = self.make_receipt()
+            self.document.save(f"{self.unique_number}.pdf", ContentFile(doc))
             super().save(*args, **kwargs)
         super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.unique_number)
+
+    def make_receipt(self):
+        html_string = render_to_string(
+            "accounts/receipt.html",
+        )
+        doc = HTML(string=html_string).write_pdf()
+        return doc
