@@ -9,6 +9,8 @@ from django.db.models.signals import post_delete, post_save
 from django.template.loader import render_to_string
 from weasyprint import CSS, HTML
 
+from accounts.utils import make_receipt
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
@@ -73,7 +75,7 @@ class Receipt(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.document:
-            doc = self.make_receipt()
+            doc = make_receipt(self)
             self.document.save(f"{self.unique_number}.pdf", ContentFile(doc))
             super().save(*args, **kwargs)
         super().save(*args, **kwargs)
@@ -81,20 +83,4 @@ class Receipt(models.Model):
     def __str__(self):
         return str(self.unique_number)
 
-    def make_receipt(self):
-        context = {
-            "number": self.unique_number,
-            "date": datetime.now().strftime("%b %d %Y %H:%M:%S"),
-            "games": self.cart.games.all(),
-            "total": self.cart.games.all().aggregate(total=Sum("price"))[
-                "total"
-            ],
-        }
 
-        html_string = render_to_string(
-            template_name="accounts/receipt.html", context=context
-        )
-        doc = HTML(string=html_string).write_pdf(
-            stylesheets=[CSS("accounts/templates/accounts/receipt.css")]
-        )
-        return doc
