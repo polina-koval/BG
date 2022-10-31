@@ -10,24 +10,23 @@
 
     <aside>
       <address id="from">
-        WeasyPrint
-        26 rue Emile Decorps
-        69100 Villeurbanne
-        France
+        BG LLC
+        Hogwarts Castle,
+        Highlands, Scotland,
+        Great Britain
       </address>
 
       <address id="to">
-        Our awesome developers
+        Our awesome players
         From all around the world
         Earth
       </address>
     </aside>
 
     <dl id="informations">
-      <dt>Invoice number</dt>
-      <dd>12345</dd>
+      <dd>{{ number }}</dd>
       <dt>Date</dt>
-      <dd>March 31, 2018</dd>
+      <dd>{{ date }}</dd>
     </dl>
 
     <table>
@@ -35,45 +34,27 @@
         <tr>
           <th>Description</th>
           <th>Price</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Website design</td>
-          <td>€34.20</td>
-          <td>100</td>
-          <td>€3,420.00</td>
-        </tr>
-        <tr>
-          <td>Website development</td>
-          <td>€45.50</td>
-          <td>100</td>
-          <td>€4,550.00</td>
-        </tr>
-        <tr>
-          <td>Website integration</td>
-          <td>€25.75</td>
-          <td>100</td>
-          <td>€2,575.00</td>
-        </tr>
+      {% for game in games %}
+            <tr>
+              <td>{{ game.name }}</td>
+              <td>{{ game.price }} $</td>
+            </tr>
+      {% endfor %}
       </tbody>
     </table>
 
     <table id="total">
       <thead>
         <tr>
-          <th>Due by</th>
-          <th>Account number</th>
           <th>Total due</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>May 10, 2018</td>
-          <td>132 456 789 012</td>
-          <td>€10,545.00</td>
+          <td>{{ total }} $</td>
         </tr>
       </tbody>
     </table>

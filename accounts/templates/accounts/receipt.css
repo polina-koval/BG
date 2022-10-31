@@ -20,11 +20,6 @@
     color: #1ee494;
     content: '♥ Thank you!';
   }
-  @bottom-right {
-    color: #a9a;
-    content: 'contact@courtbouillon.org | courtbouillon.org';
-    font-size: 9pt;
-  }
 }
 
 html {

@@ -1,11 +1,13 @@
 import uuid
+from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import post_delete, post_save
 from django.template.loader import render_to_string
-from weasyprint import HTML
+from weasyprint import CSS, HTML
 
 
 class UserProfile(models.Model):
@@ -80,8 +82,19 @@ class Receipt(models.Model):
         return str(self.unique_number)
 
     def make_receipt(self):
+        context = {
+            "number": self.unique_number,
+            "date": datetime.now().strftime("%b %d %Y %H:%M:%S"),
+            "games": self.cart.games.all(),
+            "total": self.cart.games.all().aggregate(total=Sum("price"))[
+                "total"
+            ],
+        }
+
         html_string = render_to_string(
-            "accounts/receipt.html",
+            template_name="accounts/receipt.html", context=context
         )
-        doc = HTML(string=html_string).write_pdf()
+        doc = HTML(string=html_string).write_pdf(
+            stylesheets=[CSS("accounts/templates/accounts/receipt.css")]
+        )
         return doc
