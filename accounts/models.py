@@ -1,13 +1,9 @@
 import uuid
-from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.db import models
-from django.db.models import Sum
 from django.db.models.signals import post_delete, post_save
-from django.template.loader import render_to_string
-from weasyprint import CSS, HTML
 
 from accounts.utils import make_receipt
 
