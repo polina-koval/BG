@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Receipt</title>
+    <meta name="description" content="Receipt">
+  </head>
+
+  <body>
+    <h1>Receipt</h1>
+
+    <aside>
+      <address id="from">
+        BG LLC
+        Hogwarts Castle,
+        Highlands, Scotland,
+        Great Britain
+      </address>
+
+      <address id="to">
+        Our awesome players
+        From all around the world
+        Earth
+      </address>
+    </aside>
+
+    <dl id="informations">
+      <dd>{{ number }}</dd>
+      <dt>Date</dt>
+      <dd>{{ date }}</dd>
+    </dl>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for game in games %}
+            <tr>
+              <td>{{ game.name }}</td>
+              <td>{{ game.price }} $</td>
+            </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <table id="total">
+      <thead>
+        <tr>
+          <th>Total due</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ total }} $</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

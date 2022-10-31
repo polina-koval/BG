@@ -42,12 +42,10 @@ class TestStr(TestCase):
 
     def test_str_user_is_equal_to_username(self):
         test_user = User.objects.get(username='test_user')
-        print(str(test_user))
         assert str(test_user) == test_user.username
 
     def test_str_user_profile_is_equal_to_username(self):
         test_user = UserProfile.objects.get(id=1)
-        print(str(test_user))
         assert str(test_user) == test_user.user.username
 
 
