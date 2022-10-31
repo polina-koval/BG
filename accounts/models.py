@@ -78,5 +78,3 @@ class Receipt(models.Model):
 
     def __str__(self):
         return str(self.unique_number)
-
-
